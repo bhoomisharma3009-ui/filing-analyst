@@ -1,0 +1,50 @@
+INTEL CORP (INTC) FY2025 10-K
+Filed 2026-01-23  https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/intc-20251227.htm
+Sections found: Item 1A, Item 1C, Item 3, Item 7, Item 7A, Item 9A
+
+($bn, fiscal years)             FY2020    FY2021    FY2022    FY2023    FY2024    FY2025
+Revenue                           77.9      79.0      63.1      54.2      53.1      52.9
+Gross profit                      43.6      43.8      26.9      21.7      17.3      18.4
+Operating income                  23.7      19.5       2.3       0.1    (11.7)     (2.2)
+Net income                        20.9      19.9       8.0       1.7    (18.8)     (0.3)
+D&A                               10.5      10.0      11.1       7.8      10.0      10.8
+Stock-based compensation           1.9       2.0       3.1       3.2       3.4       2.4
+Cash from operations              35.9      29.5      15.4      11.5       8.3       9.7
+Capex                             14.3      18.7      24.8      25.8      23.9      14.6
+Cash                               5.9       4.8      11.1       7.1       8.2      14.3
+Total debt                        36.4      38.1      42.0      49.3      50.0      46.6
+Receivables                        6.8       9.5       4.1       3.4       3.5       3.8
+Inventory                          8.4      10.8      13.2      11.1      12.2      11.6
+Goodwill                          27.0      27.0      27.6      27.6      24.7      23.9
+Total assets                     153.1     168.4     182.1     191.6     196.5     211.4
+Shareholders' equity              81.0      95.4     101.4     105.6      99.3     114.3
+
+Revenue growth                     n/a      1.5%    -20.2%    -14.0%     -2.1%     -0.5%
+Gross margin                     56.0%     55.4%     42.6%     40.0%     32.7%     34.8%
+Operating margin                 30.4%     24.6%      3.7%      0.2%    -22.0%     -4.2%
+Free cash flow                    21.6      10.7     (9.4)    (14.3)    (15.7)     (4.9)
+FCF margin                       27.7%     13.6%    -14.9%    -26.3%    -29.5%     -9.4%
+FCF / net income                 1.03x     0.54x    -1.17x    -8.45x       n/a       n/a
+Capex / revenue                  18.3%     23.7%     39.4%     47.5%     45.1%     27.7%
+SBC / revenue                     2.4%      2.6%      5.0%      6.0%      6.4%      4.6%
+DSO (days)                          32        44        24        23        24        27
+Net debt / EBITDA                0.89x     1.13x     2.29x     5.31x       n/a     3.78x
+Diluted share count growth         n/a     -3.4%      0.8%      2.2%      1.6%      5.8%
+
+Screens
+  [medium] Receivables growing faster than revenue
+           FY2025: receivables 10.4% vs revenue -0.5%; DSO 24 -> 27 days
+  [medium] Elevated leverage
+           FY2025: net debt / EBITDA 3.8x
+  [low   ] Diluted share count rising
+           FY2025: diluted shares 5.8% YoY
+  [medium] Revenue down two years running
+           Revenue growth -2.1%, then -0.5%
+
+Risk factors vs FY2024: 32 new, 32 removed, 18 substantially rewritten, 61 carried over
++ We have adopted a disaggregated design architecture for most of our newer and more high-end products [...]
++ If we are unable to secure a significant external foundry customer for Intel 14A, our next generation [...]
++ As an integrated design manufacturer (IDM) with a products business that depends on access to leading- [...]
++ If we were to pause or discontinue the design, development and manufacturing of Intel 14A and other [...]
++ ▪Dependence on Third-Party Foundries. Our products business would, over time, become dependent on [...]
+
