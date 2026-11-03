@@ -57,10 +57,6 @@ filing-analyst memo MSFT --out examples/
 
 Claude receives the financial table, the screen results, the risk factor diff and the relevant 10-K sections. Each one is a separate document with citations enabled. The memo always uses the same structure: bottom line, how the business makes money, what changed, quality of earnings, balance sheet, risk factor changes, bull/bear case and questions for management. Citations are rendered as Markdown footnotes, so every number and claim can be traced back to the filing text.
 
-See [`examples/MSFT_FY2026.md`](examples/MSFT_FY2026.md) for a full example.
-
-![Memo excerpt](docs/images/memo_screenshot.png)
-
 The prompt is in [`src/filing_analyst/prompts/memo_system.md`](src/filing_analyst/prompts/memo_system.md). A few choices are deliberate:
 
 - **Screens are framed as questions, not conclusions.** Microsoft's FY2026 cash conversion screen fires, with FCF at 0.50x net income. The cause is capex rising to 35% of revenue for the AI data center build-out. The memo is expected to say whether the filing explains a flag rather than treat it as a red flag.
