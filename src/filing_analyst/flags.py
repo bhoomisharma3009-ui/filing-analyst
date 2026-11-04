@@ -137,8 +137,13 @@ def financial_flags(fin: pd.DataFrame, m: pd.DataFrame) -> list[Flag]:
     capex = fin.loc["capex"].iloc[-1]
     revenue = fin.loc["revenue"].iloc[-1]
 
-    if (pd.notna(da) and pd.notna(capex) and pd.notna(revenue)
+        if (pd.notna(da) and pd.notna(capex) and pd.notna(revenue)
             and capex > 0 and revenue > 0):
+
+        print("DEBUG D&A:", da)
+        print("DEBUG CapEx:", capex)
+        print("DEBUG Revenue:", revenue)
+        print("DEBUG Ratios:", da / capex, capex / revenue)
 
         da_to_capex = da / capex
         capex_intensity = capex / revenue
