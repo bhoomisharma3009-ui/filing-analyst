@@ -132,28 +132,56 @@ def financial_flags(fin: pd.DataFrame, m: pd.DataFrame) -> list[Flag]:
             "revenue_decline", "medium", "Revenue down two years running",
             f"Revenue growth {_pct(g.iloc[-2])}, then {_pct(g.iloc[-1])}",
             "Segment disclosure, market share commentary"))
-               # Depreciation lag: identify heavy investment before full depreciation impact
-    da = fin.loc["da"].iloc[-1]
-    capex = fin.loc["capex"].iloc[-1]
-    revenue = fin.loc["revenue"].iloc[-1]
+    # Depreciation lag screen
+    required_rows = {"d_and_a", "capex", "revenue"}
 
-    if (pd.notna(da) and pd.notna(capex) and pd.notna(revenue)
-            and capex > 0 and revenue > 0):
+    if required_rows.issubset(fin.index):
+        da = fin.loc["d_and_a"].iloc[-1]
+        capex = fin.loc["capex"].iloc[-1]
+        revenue = fin.loc["revenue"].iloc[-1]
 
-        print("DEBUG D&A:", da)
-        print("DEBUG CapEx:", capex)
-        print("DEBUG Revenue:", revenue)
-        print("DEBUG Ratios:", da / capex, capex / revenue)
+        if (pd.notna(da) and pd.notna(capex) and pd.notna(revenue)
+                and capex > 0 and revenue > 0):
 
-        da_to_capex = da / capex
-        capex_intensity = capex / revenue
+            da_to_capex = da / capex
+            capex_intensity = capex / revenue
 
-        if capex_intensity > 0.25 and da_to_capex < 0.40:
-            flags.append(Flag(
-                "depreciation_lag",
-                "medium",
-                "Potential depreciation lag from elevated capital expenditure",
-                f"FY{year}: D&A to CapEx = {da_to_capex:.2f}x; "
-                f"CapEx = {_pct(capex_intensity)} of revenue",
-                "PP&E note, useful-life assumptions, depreciation policy and future margin impact"))
+            if capex_intensity > 0.25 and da_to_capex < 0.40:
+                flags.append(Flag(
+                    "depreciation_lag",
+                    "medium",
+                    "Potential depreciation lag from elevated capital expenditure",
+                    f"FY{year}: D&A to CapEx = {da_to_capex:.2f}x; "
+                    f"CapEx = {_pct(capex_intensity)} of revenue",
+                    "PP&E note, useful-life assumptions, depreciation policy and future margin impact"
+                ))
+    return flags
+
+
+_TEXT_SCREENS = [
+    ("going_concern", "high", "Going concern language",
+     r"substantial doubt (about|regarding) (the company's|our|its) ability to continue as a going concern",
+     ["7", "8"], "Liquidity plans and auditor's report"),
+    ("material_weakness", "high", "Material weakness in internal controls",
+     r"(identified|identify|existence of) (a |an |two |three |several )?material weakness"
+     r"|(controls?|control over financial reporting) (was|were) not effective",
+     ["9A"], "Item 9A remediation plan and auditor attestation"),
+    ("restatement", "high", "Restatement of previously issued financials",
+     r"restate(d|ment of)? (our |the )?(previously issued|prior period)",
+     ["7", "8", "9A"], "Restatement note and its impact on reported periods"),
+]
+
+
+def text_flags(items: dict[str, str]) -> list[Flag]:
+    flags = []
+    for code, sev, title, pattern, where, look in _TEXT_SCREENS:
+        for item in where:
+            text = items.get(item, "")
+            m = re.search(pattern, text, re.I)
+            if m:
+                lo, hi = max(0, m.start() - 160), min(len(text), m.end() + 160)
+                snippet = re.sub(r"\s+", " ", text[lo:hi]).strip()
+                flags.append(Flag(code, sev, title, f'Item {item}: "...{snippet}..."', look))
+                break
+   
     return flags
