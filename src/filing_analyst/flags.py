@@ -132,6 +132,25 @@ def financial_flags(fin: pd.DataFrame, m: pd.DataFrame) -> list[Flag]:
             "revenue_decline", "medium", "Revenue down two years running",
             f"Revenue growth {_pct(g.iloc[-2])}, then {_pct(g.iloc[-1])}",
             "Segment disclosure, market share commentary"))
+            # Depreciation lag: identify heavy investment before full depreciation impact
+    da = fin.loc["da"].iloc[-1]
+    capex = fin.loc["capex"].iloc[-1]
+    revenue = fin.loc["revenue"].iloc[-1]
+
+    if (pd.notna(da) and pd.notna(capex) and pd.notna(revenue)
+            and capex > 0 and revenue > 0):
+
+        da_to_capex = da / capex
+        capex_intensity = capex / revenue
+
+        if capex_intensity > 0.25 and da_to_capex < 0.40:
+            flags.append(Flag(
+                "depreciation_lag",
+                "medium",
+                "Potential depreciation lag from elevated capital expenditure",
+                f"FY{year}: D&A {da / 1e6:,.1f}m = {da_to_capex:.2f}x capex; "
+                f"capex {_pct(capex_intensity)} of revenue",
+                "PP&E note, useful-life assumptions, depreciation policy and future margin impact"))
 
     return flags
 
